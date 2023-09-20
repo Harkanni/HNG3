@@ -1,20 +1,19 @@
 import MainWrapper from '@/components/MainWrapper';
+import { getPictures } from '@/lib/actions';
 import { currentUser } from '@clerk/nextjs/app-beta';
 import React from 'react'
 
 export default async function Home() {
    const user = await currentUser();
-   if (!user) return null;
+   if (!user) return ("/sign-in");
    
-   // const userInfo = await fetchUser(user.id);
-   // console.log('THIS IS THE',userInfo)
-   // if (!userInfo?.onboarded) redirect("/onboarding");
-   
-   // const result = await fetchThreads(1, 20);
+
+   const Gallery = await getPictures(user.id);   
+
 
 
   return (
-    <MainWrapper />
+    <MainWrapper gallery={Gallery} username={user.username} />
   )
 }
 

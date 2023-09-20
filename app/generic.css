@@ -1,0 +1,20 @@
+.chipInputField ul {
+   background-color: black !important;
+   color: #fff !important;
+}
+
+.chipInputField input {
+   color: #fff !important;
+}
+
+.chipInputField:focus-visible {
+   border-color: #fff;
+}
+
+.chipInputField ul:hover {
+   border-color: #fff !important;
+}
+
+.chipInputField ul:focus-visible {
+   border-color: #fff !important;
+}

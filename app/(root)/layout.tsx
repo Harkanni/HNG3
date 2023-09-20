@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs"
 import '../globals.css'
+import '../generic.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Topbar from "@/components/Topbar"
@@ -23,8 +24,6 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
          {children}       
-
-          {/* <Bottombar /> */}
         </body>
       </html>
     </ClerkProvider>

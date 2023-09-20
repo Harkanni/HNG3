@@ -24,8 +24,8 @@ const Menu = () => {
    )
 }
 
-const Navbar = ({ avatar }: { avatar: string | any }) => {
-   console.log("this is navs avatar: ", avatar)
+const Navbar = ({ username }: { username: string | any }) => {
+   // console.log("this is navs avatar: ", avatar)
 
    const [toggleMenu, setToggleMenu] = useState(false)
    return (
@@ -42,7 +42,7 @@ const Navbar = ({ avatar }: { avatar: string | any }) => {
 
          </div>
          <div className='gpt3__navbar-sign'>
-            <p>Welcome Akanni</p>
+            <p>Welcome <span className='text-red-600'> {username} </span></p>
             <Menu />
             <button type='button'>Log out</button>
          </div>
