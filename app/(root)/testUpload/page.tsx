@@ -40,7 +40,7 @@ const ImageUpload: React.FC = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*', // Accept only image files
+    accept: { 'image/*': ['.jpeg', '.png'], 'video/mp4': ['.mp4', '.MP4'] }, // Accept only image files
     maxFiles: 1, // Limit the number of files to 1
   });
 

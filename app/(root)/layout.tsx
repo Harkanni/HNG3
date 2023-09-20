@@ -24,7 +24,7 @@ export default function RootLayout({
         <body className={inter.className}>
          {children}       
 
-          <Bottombar />
+          {/* <Bottombar /> */}
         </body>
       </html>
     </ClerkProvider>
