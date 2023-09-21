@@ -5,7 +5,6 @@ import { getPictures, searchForPictureByTag } from '@/lib/actions/index'
 import Picture from './Picture';
 import NotFound from './NotFound';
 import { useEffect, useState } from 'react';
-import Gallery from './tempGallery';
 
 
 interface galleryInterface {
@@ -18,18 +17,13 @@ interface galleryInterface {
 }
 
 const PictureComponent = ({ data }: any) => {
-   // console.log(data);
 
    return (
       <>
          {
             data?.length ? (
                <div className="w-full max-w-6xl flex flex-wrap gap-5 justify-center">
-                  {
-                     data.map((galleryItem: galleryInterface, index: number) => (
-                        <Picture key={index} {...galleryItem} />
-                     ))
-                  }
+                  <Picture data={data} />
                </div>
             ) : (
                <NotFound />
@@ -71,10 +65,6 @@ const MainWrapper = ({ gallery, username }: any) => {
                }
             </section>
          </main>
-         
-         <section>
-            <Gallery photosWithBlur={gallery} />
-         </section>
       </div>
    )
 }

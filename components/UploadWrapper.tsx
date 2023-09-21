@@ -41,6 +41,8 @@ const UploadWrapper = ({ avatar, username, userId }: { avatar: string | undefine
 
                // TODO: UPLOD TO FIRESTORE
             }
+
+            
          };
          reader.readAsDataURL(file);
       }

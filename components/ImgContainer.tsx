@@ -7,7 +7,7 @@ type Props = {
 
 export default function ImgContainer({ photo }: Props) {
 
-    const widthHeightRatio = photo.height / photo.width
+    const widthHeightRatio = 350 / 350
     const galleryHeight = Math.ceil(250 * widthHeightRatio)
     const photoSpans = Math.ceil(galleryHeight / 10) + 1
 
@@ -18,13 +18,13 @@ export default function ImgContainer({ photo }: Props) {
             <Link href={photo.url} target="_blank" className="grid place-content-center">
                 <div className="rounded-xl overflow-hidden group">
                     <Image
-                        src={photo.src.large}
-                        alt={photo.alt}
-                        width={photo.width}
-                        height={photo.height}
+                        src={photo.image}
+                        alt={"image"}
+                        width={350}
+                        height={350}
                         sizes="250px"
                         placeholder="blur"
-                        blurDataURL={photo.blurredDataUrl}
+                        // blurDataURL={photo.blurredDataUrl}
                         className="group-hover:opacity-75"
                     />
                 </div>
