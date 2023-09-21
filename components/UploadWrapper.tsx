@@ -100,7 +100,7 @@ const UploadWrapper = ({ avatar, username, userId }: { avatar: string | undefine
       <PrimeReactProvider>
 
          <div className='h-[100vh] w-[100%]'>
-            <div {...getRootProps()} className='dropzone overflow-hidden w-[95%] h-[60%] border rounded-xl m-auto mt-5 flex gap-3 items-center justify-center flex-col'>
+            <div {...getRootProps()} className='dropzone overflow-hidden w-[95%] h-[60%] border rounded-xl m-auto mt-5 flex gap-3 items-center justify-center flex-col hover:border-green-900 hover:border-8 hover:cursor-pointer'>
                <input {...getInputProps()} />
                {base64Image ? (
                   <div className='w-full h-full'>

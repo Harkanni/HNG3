@@ -12,28 +12,24 @@ const Bottombar = () => {
             alt="facebook"
             width={24}
             height={24}
-            className='text'
          />
          <Image
             src={instagram}
             alt="instagram"
             width={24}
             height={24}
-            className='text'
          />
          <Image
             src={twitter}
             alt="twitter"
             width={24}
             height={24}
-            className='text'
          />
          <Image
             src={youtube}
             alt="facebook"
             width={24}
             height={24}
-            className='text-red-500'
          />
       </div>
 
@@ -44,7 +40,7 @@ const Bottombar = () => {
       </div>
 
       <div className="copyright">
-         <p>&copy; 2023 MovieBox by Akanni Emmanuel</p>
+         <p>&copy; 2021 MovieBox by Adriana Eka Prayudha</p>
       </div>
     </div>
 

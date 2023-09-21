@@ -1,146 +1,93 @@
-import React, { useEffect } from 'react'
+'use client'
+
+import React, { use, useEffect, useId } from 'react'
 import Image from "next/image"
+import { closestCenter, DndContext } from "@dnd-kit/core";
+import {
+   arrayMove,
+   SortableContext,
+   useSortable,
+   verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
+const SortableImage = ({ imageContainer, id }: any) => {
+   console.log("this is container:", imageContainer.tags)
+   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id })
 
-// interface Props {
-//    id: number,
-//    username: string | null;
-//    userId: string,
-//    image: string,
-//    imageDesc?: string,
-//    profilePicture?: string
-//    tags: string[],
-//    data: object[],
-//    setGalleryData: any
-// }
+   const style = {
+      transition,
+      transform: CSS.Transform.toString(transform)
+   }
+
+   return (
+      <div
+         ref={setNodeRef} style={style} {...attributes} {...listeners}
+         draggable
+         className='h-[350px] w-[32%]'
+      >
+         <div className='h-[100%] w-[100%]'>
+            <img
+               src={imageContainer.image}
+               alt='Image'
+               className='h-[100%] w-[100%] object-cover'
+               draggable
+            />
+            <p className='inline italic font-bold'>
+               {imageContainer.tags.map((tag: string, id: number) => {
+                  tag = tag.toLowerCase() + " ";
+                  tag = tag.charAt(0) !== "#" ? `#${tag}` : tag;
+                  return (
+                     <span className={`${id % 2 == 0 ? 'blue-text-gradient' : 'pink-text-gradient'}`}>{tag}</span>
+                  )
+               })}
+            </p>
+
+         </div>
+      </div>
+   )
+}
 
 const Picture = ({ data }: any) => {
-   
-   const [galleryData, setGalleryData] = React.useState(data)
-   const [isDragOver, setIsDragOver] = React.useState<boolean>()
-   const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null);
-   const [dropTargetIndex, setDropTargetIndex] = React.useState<number | null>(null);
 
+   const idd = useId()
+   const [galleryData, setGalleryData] = React.useState(data)
 
    useEffect(() => {
       setGalleryData(data)
    }, [data]);
-   
-   
-   // save reference for gragItem and dragOverItem
-   const dragItem = React.useRef<any>(null)
-   const dragOveItem = React.useRef<any>(null)
-   const imgRef = React.useRef<any>(null)
 
-   
 
-   const getImageSize = () => {
-      
+   const onDragEnd = (event: any, id: any) => {
+      console.log(event)
+      const { active, over } = event
+
+      console.log('this is data: ', data)
+
+      setGalleryData((data: any) => {
+         const oldIndex = data.findIndex((item: any, currIndex: number) => currIndex === active.id)
+         const newIndex = data.findIndex((dt: any, currIndex: number) => currIndex === over.id)
+         // console.log("id:",id, "idd:",idd, "activeID:",active.id, "OverId:",over.id)
+         // console.log("oldIndex: ", oldIndex, "newIndex: ", newIndex)
+         return arrayMove(data, oldIndex, newIndex)
+      })
    }
 
 
 
-   // const handle drag sorting
-   const handleSort = () => {
-      if (draggedIndex !== null && dropTargetIndex !== null) {
-         const newData = [...data];
-         
-         // Swap the items using array destructuring
-         [newData[draggedIndex], newData[dropTargetIndex]] = [newData[dropTargetIndex], newData[draggedIndex]];
-         
-         setGalleryData(newData);
-       }
-       setDraggedIndex(null);
-       setDropTargetIndex(null);
 
-
-
-      // if (draggedIndex !== null && dropTargetIndex !== null) {
-      //    const newData = [...data];
-      //    const [draggedItem] = newData.splice(draggedIndex, 1);
-      //    newData.splice(dropTargetIndex, 0, draggedItem);
-      //    setGalleryData(newData);
-      //  }
-      //  setDraggedIndex(null);
-      //  setDropTargetIndex(null);
-
-
-
-      // // Create a shallow copy of the data array
-      // const newData = [...data];
-    
-      // // Remove the dragged item from its original position
-      // const [draggedItem] = newData.splice(dragItem.current, 1);
-    
-      // // Insert the dragged item at its new position
-      // newData.splice(dragOveItem.current, 0, draggedItem);
-    
-      // // Update the state with the sorted data
-      // setGalleryData(newData);
-    
-      // // Reset the drag item references and drag over state
-      // dragItem.current = null;
-      // dragOveItem.current = null;
-      // setIsDragOver(false);
-    
-      // console.log("Updated gallery data:", newData);
-    };
-    
-
-
-   // handle drag start
-   const onDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-      console.log('Drag started: ', index)
-      setDraggedIndex(index);
-      setIsDragOver(true);
-      dragItem.current = index
-   }
-
-   const onDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-      console.log('Drag enter: ', index)
-      setIsDragOver(true);
-      dragOveItem.current = index
-   }
-
-   const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-      console.log('Drag end: ')
-      return handleSort()
-   }
-
-
-   ///// TO ANIMATE
-   const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-      e.preventDefault();
-
-      if (draggedIndex === null || draggedIndex === index) return;
-      setDropTargetIndex(index);
-    };
 
 
    return (
       <>
-         {
-            galleryData.map((galleryItem: any, id: number) => (
-
-               <div
-                  key={id}
-                  draggable
-                  className={`${(dragOveItem.current && isDragOver )&& 'opacity-[.1]'}`}
-                  onDragStart={(e) => onDragStart(e, id)}
-                  onDragEnter={(e) => onDragEnter(e, id)}
-                  onDragEnd={(e) => onDragEnd(e)}
-                  onDragOver={(e) => {handleDragOver(e, id)}}
-               >
-                  <img
-                     src={galleryItem.image}
-                     alt='Image'
-                     width={350}
-                     height={350}
-                     draggable
-                  />
-               </div>
-            ))
-         }
+         <DndContext id={idd} collisionDetection={closestCenter} onDragEnd={(e) => onDragEnd(e, idd)}>
+            <SortableContext id={idd} items={galleryData} strategy={verticalListSortingStrategy}>
+               {galleryData.map((galleryItem: any, id: number) => (
+                  <SortableImage key={id} id={id} imageContainer={galleryItem} />
+               ))
+               }
+            </SortableContext>
+         </DndContext>
       </>
    )
 }
