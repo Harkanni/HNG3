@@ -13,6 +13,7 @@ interface Props {
 
 const Picture = ({ username, userId, image, imageDesc, profilePicture, tags, }: Props) => {
    // console.log("this is the props image: ", image)
+   
    return (
       <div>
          <img

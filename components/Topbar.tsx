@@ -1,13 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
-
-
 import '@/app/navbar.css'
 import { logo } from '@/assets'
 import Image from 'next/image'
-import { currentUser } from '@clerk/nextjs'
+import { Input } from './ui/input'
 
 // BEM => BLOCK ELEMENT MODIFIER
 
@@ -24,7 +22,7 @@ const Menu = () => {
    )
 }
 
-const Navbar = ({ username }: { username: string | any }) => {
+const Navbar = ({ username, handleSearch }: any) => {
    // console.log("this is navs avatar: ", avatar)
 
    const [toggleMenu, setToggleMenu] = useState(false)
@@ -37,14 +35,27 @@ const Navbar = ({ username }: { username: string | any }) => {
                   alt='logo'
                   width={200}
                   height={200}
+                  className='gpt3__navbar-sign'
                />
             </div>
 
          </div>
+
+         <div className='lg:w-[40%]'>
+            <Input
+               className='bg-black w-full'
+               // value={searchQuery}
+               onKeyDown={(e) => { handleSearch(e) }}
+               onChange={(e) => { handleSearch(e) }}
+               placeholder='Search for images with tags, siri dey for you.....'
+            />
+         </div>
+
          <div className='gpt3__navbar-sign'>
             <p>Welcome <span className='text-red-600'> {username} </span></p>
-            <Menu />
-            <button type='button'>Log out</button>
+            <button type='button'>
+               <Menu />
+            </button>
          </div>
          <div className='gpt3__navbar-menu'>
             {toggleMenu ?
@@ -55,10 +66,9 @@ const Navbar = ({ username }: { username: string | any }) => {
                <div className='gpt3__navbar-menu_container scale-up-center'>
                   <div className='gpt3__navbar-menu_container-links'>
                      <p>Welcome Akanni</p>
-                     <Menu />
                      <div className='gpt3__navbar-menu_container-links-sign'>
-                        <button type='button'>Log out</button>
-                     M</div>
+                        <button type='button'><Menu /></button>
+                        M</div>
                   </div>
                </div>
             )}
