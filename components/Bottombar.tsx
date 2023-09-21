@@ -5,7 +5,7 @@ import Image from "next/image"
 
 const Bottombar = () => {
   return (
-    <div className="mt-10 my-5 flex flex-col justify-center items-center">
+    <div className="mt-10 my-5 flex flex-col justify-center items-center bottombar">
       <div className="socials flex gap-7">
          <Image
             src={facebook}

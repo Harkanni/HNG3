@@ -10,6 +10,8 @@ import {
    verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import '@/app/generic.css'
+
 
 const SortableImage = ({ imageContainer, id }: any) => {
    console.log("this is container:", imageContainer.tags)
@@ -24,7 +26,7 @@ const SortableImage = ({ imageContainer, id }: any) => {
       <div
          ref={setNodeRef} style={style} {...attributes} {...listeners}
          draggable
-         className='h-[350px] w-[32%]'
+         className='h-[350px] imageContainer mb-4'
       >
          <div className='h-[100%] w-[100%]'>
             <img
